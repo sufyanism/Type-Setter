@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Upload Manuscript</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 50px; }
+        .container { max-width: 500px; margin: auto; }
+        h1 { text-align: center; }
+        form { display: flex; flex-direction: column; }
+        input[type=file] { margin: 20px 0; }
+        button { padding: 10px; font-size: 16px; }
+        .message { color: red; text-align: center; }
+        .download { margin-top: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Upload Your Manuscript</h1>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="message">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".docx" required />
+        <button type="submit">Generate PDF</button>
+    </form>
+    {% if download_url %}
+        <div class="download">
+            <a href="{{ download_url }}">Download your PDF</a>
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>
