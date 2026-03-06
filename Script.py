@@ -14,9 +14,19 @@ TEMPLATE = "templates/scholarly.typ"
 # Check if Typst is installed
 # -----------------------------
 def check_typst():
+
     if shutil.which("typst") is None:
         st.error("Typst is not installed on this server.")
         st.stop()
+
+    # Show Typst version
+    version = subprocess.run(
+        ["typst", "--version"],
+        capture_output=True,
+        text=True
+    )
+
+    st.info(f"Typst detected: {version.stdout}")
 
 
 # -----------------------------
@@ -81,6 +91,7 @@ def compile_pdf(temp_typ, temp_pdf):
 st.title("Automated Typesetter")
 st.write("Upload a DOCX manuscript and generate a print-ready PDF.")
 
+# Check Typst installation
 check_typst()
 
 uploaded_file = st.file_uploader("Upload DOCX File", type=["docx"])
