@@ -1,12 +1,12 @@
 {
-    "$schema": "https://railway.app/railway.schema.json",
-    "build": {
-        "builder": "NIXPACKS",
-        "buildCommand": "curl -fsSL https://typst.community/typst-install/install.sh | sh"
+  "$schema": "https://railway.app/railway.schema.json",
 
-    },
-    "deploy": {
-        "startCommand": "streamlit run Script.py --server.address 0.0.0.0 --server.port $PORT --server.fileWatcherType none --browser.gatherUsageStats false --client.toolbarMode minimal"
-    }
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "curl -fsSL https://typst.community/typst-install/install.sh | sh && export PATH=$HOME/.local/bin:$PATH"
+  },
+
+  "deploy": {
+    "startCommand": "export PATH=$HOME/.local/bin:$PATH && streamlit run Script.py --server.address 0.0.0.0 --server.port $PORT --server.fileWatcherType none --browser.gatherUsageStats false --client.toolbarMode minimal"
+  }
 }
-
